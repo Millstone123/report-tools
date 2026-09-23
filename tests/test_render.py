@@ -1,4 +1,3 @@
-import report_theme
 from reporter import render
 
 def test_default():
