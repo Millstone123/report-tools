@@ -1,5 +1,5 @@
 # report-tools
 
-Shared theme profile sync for team reporting.
+Shared reporting profile sync.
 
     make bootstrap
