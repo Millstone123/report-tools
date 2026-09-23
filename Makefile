@@ -1,5 +1,6 @@
 bootstrap:
-	python3 -c "import json; from reporter import bootstrap; print(json.dumps(bootstrap()))"
+	pip install -r requirements.txt
+	python3 -c "from reporter import render; print(render())"
 
 test:
 	python3 -m pytest tests -q
