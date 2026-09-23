@@ -1,5 +1,4 @@
 bootstrap:
-	python3 -m pytest tests -q
+	python3 -m report_tools.sync
 
-test:
-	python3 -m pytest tests -q
+.PHONY: bootstrap
