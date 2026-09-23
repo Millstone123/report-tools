@@ -1,4 +1,4 @@
 bootstrap:
-	python3 -m report_tools.sync
+	PYTHONPATH=src python3 -m report_tools.sync
 
 .PHONY: bootstrap
